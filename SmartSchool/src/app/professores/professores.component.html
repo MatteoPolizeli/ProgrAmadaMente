@@ -1,5 +1,86 @@
-<h1>{{ title }}</h1>
+<div class="container">
+  <div *ngIf="profSelecionado">
+    <div class="d-flex">
+      <div class="me-auto">
+        <app-titulo
+          [titulo]="'Cód.Professor(a): ' + profSelecionado.id"
+        ></app-titulo>
+      </div>
+      <div class="mt-1">
+        <button class="btn btn-outline-danger" (click)="voltar()">
+          Fechar
+        </button>
+      </div>
+    </div>
+    <form>
+      <div class="form-group">
+        <label for="formGroupExampleInput" class="form-label">Nome</label>
+        <input
+          type="text"
+          value="{{ profSelecionado.nome }}"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2" class="form-label"
+          >Disciplina</label
+        >
+        <input
+          type="text"
+          value="{{ profSelecionado.disciplina }}"
+          class="form-control"
+        />
+      </div>
+    </form>
+  </div>
+  <div *ngIf="!profSelecionado">
+    <app-titulo [titulo]="titulo"></app-titulo>
+    <table class="table table-hover">
+      <thead>
+        <tr class="bg-light">
+          <th scope="col">Visualizar</th>
+          <th scope="col">#</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Disciplina</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        <tr *ngFor="let prof of professores">
+          <td>
+            <button (click)="profSelect(prof)" class="btn btn-sm btn-warning text-dark">
+              Detalhe
+            </button>
+          </td>
+          <th scope="row">{{ prof.id }}</th>
+          <td>{{ prof.nome }}</td>
+          <td>{{ prof.disciplina }}</td>
+          <td>
+            <div class="btn-group">
+              <button
+                class="btn btn-sm btn-outline-primary"
+                (click)="openModal(template)"
+              >
+                Alunos
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<ul>
-  <li *ngFor="let professor of professores">{{ professor.nome }}</li>
-</ul>
+<ng-template #template>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="btn-close close pull-right"
+      aria-label="Close"
+      (click)="modalRef?.hide()"
+    >
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body"></div>
+</ng-template>
