@@ -11,13 +11,13 @@ namespace SmartSchool_webAPI.Controllers
         public IActionResult Get(){
             try
             {
-                throw new Exception("Apenas um teste");
+                return Ok(""); 
+                //200
             }
             catch (Exception ex)
-            {
-                
-            return BadRequest($"Erro: {ex.Message}");
-            
+            {    
+                return BadRequest($"Erro: {ex.Message}");
+                //400
             }
         }
     }
